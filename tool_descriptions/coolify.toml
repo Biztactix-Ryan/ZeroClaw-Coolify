@@ -1,0 +1,75 @@
+# Tool description for the LLM system prompt (en locale)
+# Add this entry to tool_descriptions/en.toml
+
+[coolify]
+description = """
+Manage a Coolify cluster. Use this tool for all Coolify operations.
+
+IMPORTANT: Some environments are PROTECTED (typically "production"). All mutating
+operations (deploy, stop, restart, update, env var changes) are blocked on
+protected environments. Read-only actions always work.
+
+Actions:
+  Projects & Environments:
+    - list_projects: List all projects with their environments
+    - get_project(uuid): Get project details
+    - list_environments(project_uuid): List environments in a project
+    - get_environment(project_uuid, environment): Get environment details and its resources
+
+  Applications:
+    - list_applications: List all applications with status
+    - get_application(uuid): Get application details
+    - deploy_application(uuid): Deploy/redeploy an application
+    - stop_application(uuid): Stop an application
+    - restart_application(uuid): Restart an application
+    - get_application_logs(uuid, lines?): Get application logs (default 100 lines)
+    - update_application(uuid, data): Update application settings
+
+  Services:
+    - list_services: List all services
+    - get_service(uuid): Get service details
+    - start_service(uuid): Start a service
+    - stop_service(uuid): Stop a service
+    - restart_service(uuid): Restart a service
+
+  Databases:
+    - list_databases: List all databases
+    - get_database(uuid): Get database details
+    - start_database(uuid): Start a database
+    - stop_database(uuid): Stop a database
+    - restart_database(uuid): Restart a database
+
+  Database Backups:
+    - list_backups(db_uuid): List backup schedules for a database
+    - get_backup(db_uuid, backup_uuid): Get a specific backup schedule
+    - create_backup(db_uuid, data): Create a backup schedule
+    - delete_backup(db_uuid, backup_uuid): Delete a backup schedule
+    - list_backup_executions(db_uuid, backup_uuid): List backup execution history
+
+  Servers:
+    - list_servers: List all servers
+    - get_server(uuid): Get server details
+    - validate_server(uuid): Check server connectivity
+    - get_server_resources(uuid): List resources on a server
+    - get_server_domains(uuid): List all domains configured on a server
+
+  Deployments:
+    - list_deployments: List recent deployments
+    - get_deployment(uuid): Get deployment details
+    - cancel_deployment(uuid): Cancel a running deployment
+
+  Environment Variables:
+    - list_envs(resource_type, uuid): List env vars for an application/service/database
+    - create_env(resource_type, uuid, data): Create an env var
+    - delete_env(resource_type, uuid, env_uuid): Delete an env var
+
+  Meta:
+    - list_resources: List all resources across types
+    - get_version: Get Coolify version
+
+Workflow tips:
+  - Start with list_projects to understand the project/environment structure
+  - Use get_environment to see all resources within a specific environment
+  - Always check which environment a resource belongs to before mutating it
+  - Use get_application_logs to diagnose issues before restarting
+"""
